@@ -15,9 +15,10 @@ export class IterationsService {
   public generate(width: number): Observable<IBifurcation> {
     const rIterator = Observable.range(0, width - 1).delay(1000).map(x => (4.0 * x) / width),
     sync = new Subject<IBifurcation>();
-    console.log('rIterte', rIterator);
+    // console.log('rIterte', rIterator);
     rIterator.subscribe(r => {
       const params = new URLSearchParams();
+      // console.log('r', r);
       params.set('r', r.toString());
       this.http.get('https://angularfunc.azurewebsites.net/api/xIterate', {
         search: params
@@ -28,6 +29,7 @@ export class IterationsService {
         }
       });
     });
+    console.log('sync', sync);
     return sync.asObservable();
   }
 }
