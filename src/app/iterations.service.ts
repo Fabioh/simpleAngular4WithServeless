@@ -11,9 +11,11 @@ export interface IBifurcation {
 export class IterationsService {
 
   constructor(public http: Http) { }
+  
   public generate(width: number): Observable<IBifurcation> {
-    const rIterator = Observable.range(0, width - 1).delay(1).map(x => (4.0 * x) / width),
+    const rIterator = Observable.range(0, width - 1).delay(1000).map(x => (4.0 * x) / width),
     sync = new Subject<IBifurcation>();
+    console.log('rIterte', rIterator);
     rIterator.subscribe(r => {
       const params = new URLSearchParams();
       params.set('r', r.toString());
